@@ -89,6 +89,13 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Ensure smooth scrolling is supported by all browsers */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 body {
   font-family: var(--font-family);
   font-size: var(--font-size-base);
@@ -1443,43 +1450,46 @@ a:hover {
 
 /* ===== BACK TO TOP BUTTON ===== */
 .back-to-top {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  width: 50px;
-  height: 50px;
-  background: #FF6B35;
-  color: #FFFFFF;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(20px);
-  z-index: 9999;
+  position: fixed !important;
+  bottom: 24px !important;
+  right: 24px !important;
+  width: 50px !important;
+  height: 50px !important;
+  background: #FF6B35 !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 18px !important;
+  box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3) !important;
+  backdrop-filter: blur(10px) !important;
+  transition: all 0.3s ease !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: translateY(20px) !important;
+  z-index: 999999 !important;
+  pointer-events: none !important;
+  will-change: opacity, visibility, transform !important;
 }
 
 .back-to-top.visible {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+  pointer-events: auto !important;
 }
 
 .back-to-top:hover {
-  background: #E55A2B;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(255, 107, 53, 0.4);
+  background: #E55A2B !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 25px rgba(255, 107, 53, 0.4) !important;
 }
 
 .back-to-top:active {
-  transform: translateY(0);
+  transform: translateY(0) !important;
 }
 
 /* Dark mode adjustments */

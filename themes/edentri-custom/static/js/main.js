@@ -327,6 +327,8 @@ class BackToTop {
     constructor() {
         this.button = document.getElementById('backToTop');
         this.scrollThreshold = 100; // Show button after 100px scroll
+        this.isVisible = false;
+        this.ticking = false;
         this.init();
     }
 
@@ -338,32 +340,103 @@ class BackToTop {
         
         console.log('Back to top button initialized');
         this.bindEvents();
-        this.handleScroll();
+        this.setupIntersectionObserver();
+        // Initial check
+        this.requestTick();
     }
 
     bindEvents() {
         // Handle click
-        this.button.addEventListener('click', () => this.scrollToTop());
+        this.button.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.scrollToTop();
+        });
         
-        // Handle scroll
-        window.addEventListener('scroll', () => this.handleScroll(), { passive: true });
+        // Handle scroll with requestAnimationFrame throttling
+        window.addEventListener('scroll', () => this.requestTick(), { passive: true });
+    }
+
+    setupIntersectionObserver() {
+        // Create a sentinel element at the top of the page
+        const sentinel = document.createElement('div');
+        sentinel.style.position = 'absolute';
+        sentinel.style.top = '100px';
+        sentinel.style.height = '1px';
+        sentinel.style.width = '1px';
+        sentinel.style.opacity = '0';
+        sentinel.style.pointerEvents = 'none';
+        document.body.appendChild(sentinel);
+
+        // Use Intersection Observer for better performance
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        this.hideButton();
+                    } else {
+                        this.showButton();
+                    }
+                });
+            }, {
+                rootMargin: '0px',
+                threshold: 0
+            });
+
+            observer.observe(sentinel);
+        }
+    }
+
+    requestTick() {
+        if (!this.ticking) {
+            requestAnimationFrame(() => this.handleScroll());
+            this.ticking = true;
+        }
     }
 
     handleScroll() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
-        if (scrollTop > this.scrollThreshold) {
+        if (scrollTop > this.scrollThreshold && !this.isVisible) {
+            this.showButton();
+        } else if (scrollTop <= this.scrollThreshold && this.isVisible) {
+            this.hideButton();
+        }
+        
+        this.ticking = false;
+    }
+
+    showButton() {
+        if (!this.isVisible) {
             this.button.classList.add('visible');
-        } else {
+            this.isVisible = true;
+        }
+    }
+
+    hideButton() {
+        if (this.isVisible) {
             this.button.classList.remove('visible');
+            this.isVisible = false;
         }
     }
 
     scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+        // Use CSS scroll-behavior if supported, otherwise fallback
+        if ('scrollBehavior' in document.documentElement.style) {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        } else {
+            // Fallback smooth scroll implementation
+            const scrollStep = -window.scrollY / (500 / 15);
+            const scrollInterval = setInterval(() => {
+                if (window.scrollY !== 0) {
+                    window.scrollBy(0, scrollStep);
+                } else {
+                    clearInterval(scrollInterval);
+                }
+            }, 15);
+        }
     }
 }
 
