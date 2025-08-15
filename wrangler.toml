@@ -1,6 +1,6 @@
 # Configure Cloudflare Worker
 
-name = 'edentri-site'
+name = 'edentriweb'
 compatibility_date = '2025-01-15'
 
 [build]
