@@ -171,26 +171,44 @@ class ScrollAnimations {
 
     handleHeaderScroll() {
         const header = document.querySelector('.header');
-        let lastScrollTop = 0;
+        if (!header) return;
 
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (scrollTop > 100) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
+        // Create sentinel elements for different scroll thresholds
+        const scrollSentinel = document.createElement('div');
+        scrollSentinel.style.cssText = `
+            position: absolute;
+            top: 100px;
+            height: 1px;
+            width: 1px;
+            opacity: 0;
+            pointer-events: none;
+            z-index: -1;
+        `;
+        scrollSentinel.setAttribute('data-header-sentinel', 'true');
+        document.body.insertBefore(scrollSentinel, document.body.firstChild);
 
-            // Hide header on scroll down, show on scroll up
-            if (scrollTop > lastScrollTop && scrollTop > 200) {
-                header.style.transform = 'translateY(-100%)';
-            } else {
-                header.style.transform = 'translateY(0)';
-            }
-            
-            lastScrollTop = scrollTop;
-        });
+        // Use Intersection Observer instead of scroll events
+        if ('IntersectionObserver' in window) {
+            const headerObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Near top - remove scrolled class
+                        header.classList.remove('scrolled');
+                        header.style.transform = 'translateY(0)';
+                    } else {
+                        // Scrolled past threshold - add scrolled class
+                        header.classList.add('scrolled');
+                        header.style.transform = 'translateY(0)';
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0
+            });
+
+            headerObserver.observe(scrollSentinel);
+        }
     }
 }
 
@@ -326,9 +344,7 @@ class VideoOptimizer {
 class BackToTop {
     constructor() {
         this.button = document.getElementById('backToTop');
-        this.scrollThreshold = 100; // Show button after 100px scroll
         this.isVisible = false;
-        this.ticking = false;
         this.init();
     }
 
@@ -341,68 +357,56 @@ class BackToTop {
         console.log('Back to top button initialized');
         this.bindEvents();
         this.setupIntersectionObserver();
-        // Initial check
-        this.requestTick();
     }
 
     bindEvents() {
-        // Handle click
+        // Handle click only
         this.button.addEventListener('click', (e) => {
             e.preventDefault();
             this.scrollToTop();
         });
-        
-        // Handle scroll with requestAnimationFrame throttling
-        window.addEventListener('scroll', () => this.requestTick(), { passive: true });
     }
 
     setupIntersectionObserver() {
-        // Create a sentinel element at the top of the page
+        // Create a sentinel element at the trigger point
         const sentinel = document.createElement('div');
-        sentinel.style.position = 'absolute';
-        sentinel.style.top = '100px';
-        sentinel.style.height = '1px';
-        sentinel.style.width = '1px';
-        sentinel.style.opacity = '0';
-        sentinel.style.pointerEvents = 'none';
-        document.body.appendChild(sentinel);
+        sentinel.style.cssText = `
+            position: absolute;
+            top: 200px;
+            height: 1px;
+            width: 1px;
+            opacity: 0;
+            pointer-events: none;
+            z-index: -1;
+        `;
+        sentinel.setAttribute('data-scroll-sentinel', 'true');
+        
+        // Insert at the beginning of body
+        document.body.insertBefore(sentinel, document.body.firstChild);
 
-        // Use Intersection Observer for better performance
+        // Use only Intersection Observer - no scroll events
         if ('IntersectionObserver' in window) {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
+                        // Sentinel is visible = we're near the top
                         this.hideButton();
                     } else {
+                        // Sentinel is not visible = we've scrolled past it
                         this.showButton();
                     }
                 });
             }, {
+                root: null,
                 rootMargin: '0px',
                 threshold: 0
             });
 
             observer.observe(sentinel);
+        } else {
+            // Fallback: show button after a delay (for very old browsers)
+            setTimeout(() => this.showButton(), 2000);
         }
-    }
-
-    requestTick() {
-        if (!this.ticking) {
-            requestAnimationFrame(() => this.handleScroll());
-            this.ticking = true;
-        }
-    }
-
-    handleScroll() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (scrollTop > this.scrollThreshold && !this.isVisible) {
-            this.showButton();
-        } else if (scrollTop <= this.scrollThreshold && this.isVisible) {
-            this.hideButton();
-        }
-        
-        this.ticking = false;
     }
 
     showButton() {
@@ -420,23 +424,8 @@ class BackToTop {
     }
 
     scrollToTop() {
-        // Use CSS scroll-behavior if supported, otherwise fallback
-        if ('scrollBehavior' in document.documentElement.style) {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        } else {
-            // Fallback smooth scroll implementation
-            const scrollStep = -window.scrollY / (500 / 15);
-            const scrollInterval = setInterval(() => {
-                if (window.scrollY !== 0) {
-                    window.scrollBy(0, scrollStep);
-                } else {
-                    clearInterval(scrollInterval);
-                }
-            }, 15);
-        }
+        // Simple scroll to top without smooth behavior to avoid warnings
+        window.scrollTo(0, 0);
     }
 }
 
