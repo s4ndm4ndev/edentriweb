@@ -295,10 +295,12 @@ class VideoOptimizer {
     }
 }
 
-// ===== SIMPLE BACK TO TOP BUTTON =====
-class SimpleBackToTop {
+// ===== SMART BACK TO TOP BUTTON =====
+class SmartBackToTop {
     constructor() {
         this.button = document.getElementById('backToTop');
+        this.isVisible = false;
+        this.checkCount = 0;
         this.init();
     }
 
@@ -310,27 +312,76 @@ class SimpleBackToTop {
         
         console.log('Back to top button initialized');
         this.bindEvents();
-        this.showButtonAfterDelay();
+        this.startPeriodicCheck();
     }
 
     bindEvents() {
-        // Handle click only
+        // Handle click
         this.button.addEventListener('click', (e) => {
             e.preventDefault();
             this.scrollToTop();
         });
     }
 
-    showButtonAfterDelay() {
-        // Show button after 3 seconds, no scroll detection
-        setTimeout(() => {
-            this.button.classList.add('visible');
-        }, 3000);
+    startPeriodicCheck() {
+        // Use periodic checks instead of scroll events
+        const checkInterval = setInterval(() => {
+            this.checkCount++;
+            
+            // Start checking after 2 seconds
+            if (this.checkCount > 4) {
+                this.checkScrollPosition();
+            }
+            
+            // Stop checking after 30 seconds to save resources
+            if (this.checkCount > 60) {
+                clearInterval(checkInterval);
+                // Keep button visible after stopping checks
+                if (!this.isVisible) {
+                    this.showButton();
+                }
+            }
+        }, 500);
+    }
+
+    checkScrollPosition() {
+        // Use idle callback to avoid performance issues
+        if (window.requestIdleCallback) {
+            window.requestIdleCallback(() => {
+                this.doScrollCheck();
+            });
+        } else {
+            // Fallback for browsers without requestIdleCallback
+            setTimeout(() => {
+                this.doScrollCheck();
+            }, 16);
+        }
+    }
+
+    doScrollCheck() {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        
+        if (scrollTop > 300 && !this.isVisible) {
+            this.showButton();
+        } else if (scrollTop <= 300 && this.isVisible) {
+            this.hideButton();
+        }
+    }
+
+    showButton() {
+        this.button.classList.add('visible');
+        this.isVisible = true;
+    }
+
+    hideButton() {
+        this.button.classList.remove('visible');
+        this.isVisible = false;
     }
 
     scrollToTop() {
-        // Simple scroll to top without smooth behavior
-        window.scrollTo(0, 0);
+        // Instant scroll to top
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
     }
 }
 
@@ -394,7 +445,7 @@ class App {
             new SimpleAnimations(),
             new FormHandler(),
             new VideoOptimizer(),
-            new SimpleBackToTop(),
+            new SmartBackToTop(),
             new PerformanceOptimizer()
         ];
 
