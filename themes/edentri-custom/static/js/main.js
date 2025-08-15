@@ -135,75 +135,34 @@ class InstantScroll {
     }
 }
 
-// ===== SCROLL ANIMATIONS =====
-class ScrollAnimations {
+// ===== SIMPLE ANIMATIONS =====
+class SimpleAnimations {
     constructor() {
-        this.observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
         this.init();
     }
 
     init() {
-        this.setupIntersectionObserver();
-        this.handleHeaderScroll();
+        // Simple animations without any scroll detection
+        this.setupBasicAnimations();
+        this.setupStaticHeader();
     }
 
-    setupIntersectionObserver() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-in');
-                }
+    setupBasicAnimations() {
+        // Just add animate-in class to all elements after a delay
+        setTimeout(() => {
+            document.querySelectorAll('.service-card, .about__content, .contact__content').forEach(el => {
+                el.classList.add('animate-in');
             });
-        }, this.observerOptions);
-
-        // Observe elements that should animate on scroll
-        document.querySelectorAll('.service-card, .about__content, .contact__content').forEach(el => {
-            observer.observe(el);
-        });
+        }, 500);
     }
 
-    handleHeaderScroll() {
+    setupStaticHeader() {
         const header = document.querySelector('.header');
-        if (!header) return;
-
-        // Create sentinel elements for different scroll thresholds
-        const scrollSentinel = document.createElement('div');
-        scrollSentinel.style.cssText = `
-            position: absolute;
-            top: 100px;
-            height: 1px;
-            width: 1px;
-            opacity: 0;
-            pointer-events: none;
-            z-index: -1;
-        `;
-        scrollSentinel.setAttribute('data-header-sentinel', 'true');
-        document.body.insertBefore(scrollSentinel, document.body.firstChild);
-
-        // Use Intersection Observer instead of scroll events
-        if ('IntersectionObserver' in window) {
-            const headerObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Near top - remove scrolled class
-                        header.classList.remove('scrolled');
-                        header.style.transform = 'translateY(0)';
-                    } else {
-                        // Scrolled past threshold - add scrolled class
-                        header.classList.add('scrolled');
-                        header.style.transform = 'translateY(0)';
-                    }
-                });
-            }, {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0
-            });
-
-            headerObserver.observe(scrollSentinel);
+        if (header) {
+            // Add scrolled class after a delay for styling, no scroll detection
+            setTimeout(() => {
+                header.classList.add('scrolled');
+            }, 1000);
         }
     }
 }
@@ -336,11 +295,10 @@ class VideoOptimizer {
     }
 }
 
-// ===== BACK TO TOP BUTTON =====
-class BackToTop {
+// ===== SIMPLE BACK TO TOP BUTTON =====
+class SimpleBackToTop {
     constructor() {
         this.button = document.getElementById('backToTop');
-        this.isVisible = false;
         this.init();
     }
 
@@ -352,7 +310,7 @@ class BackToTop {
         
         console.log('Back to top button initialized');
         this.bindEvents();
-        this.setupIntersectionObserver();
+        this.showButtonAfterDelay();
     }
 
     bindEvents() {
@@ -363,64 +321,15 @@ class BackToTop {
         });
     }
 
-    setupIntersectionObserver() {
-        // Create a sentinel element at the trigger point
-        const sentinel = document.createElement('div');
-        sentinel.style.cssText = `
-            position: absolute;
-            top: 200px;
-            height: 1px;
-            width: 1px;
-            opacity: 0;
-            pointer-events: none;
-            z-index: -1;
-        `;
-        sentinel.setAttribute('data-scroll-sentinel', 'true');
-        
-        // Insert at the beginning of body
-        document.body.insertBefore(sentinel, document.body.firstChild);
-
-        // Use only Intersection Observer - no scroll events
-        if ('IntersectionObserver' in window) {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Sentinel is visible = we're near the top
-                        this.hideButton();
-                    } else {
-                        // Sentinel is not visible = we've scrolled past it
-                        this.showButton();
-                    }
-                });
-            }, {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0
-            });
-
-            observer.observe(sentinel);
-        } else {
-            // Fallback: show button after a delay (for very old browsers)
-            setTimeout(() => this.showButton(), 2000);
-        }
-    }
-
-    showButton() {
-        if (!this.isVisible) {
+    showButtonAfterDelay() {
+        // Show button after 3 seconds, no scroll detection
+        setTimeout(() => {
             this.button.classList.add('visible');
-            this.isVisible = true;
-        }
-    }
-
-    hideButton() {
-        if (this.isVisible) {
-            this.button.classList.remove('visible');
-            this.isVisible = false;
-        }
+        }, 3000);
     }
 
     scrollToTop() {
-        // Simple scroll to top without smooth behavior to avoid warnings
+        // Simple scroll to top without smooth behavior
         window.scrollTo(0, 0);
     }
 }
@@ -482,10 +391,10 @@ class App {
             new ThemeManager(),
             new MobileNav(),
             new InstantScroll(),
-            new ScrollAnimations(),
+            new SimpleAnimations(),
             new FormHandler(),
             new VideoOptimizer(),
-            new BackToTop(),
+            new SimpleBackToTop(),
             new PerformanceOptimizer()
         ];
 
