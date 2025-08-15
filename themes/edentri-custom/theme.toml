@@ -1,11 +1,11 @@
 name = "Edentri Custom"
 description = "A modern, responsive theme for Edentri with dark/light mode support"
-homepage = "https://edentri.com"
+homepage = "https://edentriweb.swiftscripters.workers.dev"
 min_version = "0.116.0"
 
 [author]
   name = "Edentri Team"
-  homepage = "https://edentri.com"
+  homepage = "https://edentriweb.swiftscripters.workers.dev"
 
 [features]
   responsive = true

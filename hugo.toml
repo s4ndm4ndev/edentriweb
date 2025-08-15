@@ -1,4 +1,4 @@
-baseURL = 'https://edentri.pages.dev'
+baseURL = 'https://edentriweb.swiftscripters.workers.dev'
 languageCode = 'en-us'
 title = 'Edentri AS - Streamline Your Data Flow'
 theme = 'edentri-custom'
@@ -23,7 +23,7 @@ enableGitInfo = true
 [deployment]
   [[deployment.targets]]
     name = "cloudflare"
-    URL = "https://edentri.pages.dev"
+    URL = "https://edentriweb.swiftscripters.workers.dev"
 
 # Minification for production
 [minify]
