@@ -326,13 +326,17 @@ class VideoOptimizer {
 class BackToTop {
     constructor() {
         this.button = document.getElementById('backToTop');
-        this.scrollThreshold = 300; // Show button after 300px scroll
+        this.scrollThreshold = 100; // Show button after 100px scroll
         this.init();
     }
 
     init() {
-        if (!this.button) return;
+        if (!this.button) {
+            console.warn('Back to top button not found');
+            return;
+        }
         
+        console.log('Back to top button initialized');
         this.bindEvents();
         this.handleScroll();
     }
