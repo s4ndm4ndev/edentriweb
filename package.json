@@ -10,7 +10,7 @@
     "clean": "rm -rf public resources"
   },
   "devDependencies": {
-    "wrangler": "^3.78.12"
+    "wrangler": "^3.114.13"
   },
   "keywords": [
     "hugo",
