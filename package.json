@@ -1,0 +1,23 @@
+{
+  "name": "edentri-hugo-site",
+  "version": "1.0.0",
+  "description": "Edentri AS - Hugo static site for Cloudflare Pages",
+  "scripts": {
+    "dev": "hugo server -D",
+    "build": "hugo --gc --minify",
+    "preview": "hugo server --buildDrafts --buildFuture",
+    "deploy": "wrangler deploy",
+    "clean": "rm -rf public resources"
+  },
+  "devDependencies": {
+    "wrangler": "^3.78.12"
+  },
+  "keywords": [
+    "hugo",
+    "cloudflare-pages",
+    "static-site",
+    "edentri"
+  ],
+  "author": "Edentri AS",
+  "license": "MIT"
+}

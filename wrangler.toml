@@ -1,0 +1,11 @@
+# Configure Cloudflare Worker
+
+name = 'edentri-site'
+compatibility_date = '2025-01-15'
+
+[build]
+command = './build.sh'
+
+[assets]
+directory = './public'
+not_found_handling = '404-page'

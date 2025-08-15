@@ -1,0 +1,67 @@
+{{ define "main" }}
+<section class="page-header">
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="/" class="breadcrumb__link">Home</a>
+            <span class="breadcrumb__separator">→</span>
+            <span class="breadcrumb__current">{{ .Title }}</span>
+        </nav>
+        <h1 class="page-header__title">{{ .Title }}</h1>
+        <p class="page-header__description">{{ .Description }}</p>
+    </div>
+</section>
+
+<section class="services-overview">
+    <div class="container">
+        <div class="services-grid">
+            {{ range .Pages }}
+            <div class="service-overview-card">
+                <div class="service-overview-card__icon">
+                    {{ if eq .Title "Document Processing" }}
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14,2 14,8 20,8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10,9 9,9 8,9"/>
+                    </svg>
+                    {{ else if eq .Title "Data Extraction" }}
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="m12 1 0 6"/>
+                        <path d="m12 17 0 6"/>
+                        <path d="m4.22 4.22 4.24 4.24"/>
+                        <path d="m15.54 15.54 4.24 4.24"/>
+                        <path d="m1 12 6 0"/>
+                        <path d="m17 12 6 0"/>
+                        <path d="m4.22 19.78 4.24-4.24"/>
+                        <path d="m15.54 8.46 4.24-4.24"/>
+                    </svg>
+                    {{ else if eq .Title "Workflow Integration" }}
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                        <circle cx="12" cy="12" r="4"/>
+                    </svg>
+                    {{ end }}
+                </div>
+                <h3 class="service-overview-card__title">{{ .Title }}</h3>
+                <p class="service-overview-card__description">{{ .Description }}</p>
+                <a href="{{ .Permalink }}" class="btn btn--primary">Learn More</a>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+</section>
+
+<section class="services-cta">
+    <div class="container">
+        <div class="services-cta__content">
+            <h2 class="services-cta__title">Ready to Get Started?</h2>
+            <p class="services-cta__description">
+                Discover how our services can transform your data processing workflow. Book a demo to see our solutions in action.
+            </p>
+            <a href="/#demo-booking" class="btn btn--primary btn--large">Book a Demo</a>
+        </div>
+    </div>
+</section>
+{{ end }}

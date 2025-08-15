@@ -1,0 +1,35 @@
+baseURL = 'https://edentri.pages.dev'
+languageCode = 'en-us'
+title = 'Edentri AS - Streamline Your Data Flow'
+theme = 'edentri-custom'
+
+[params]
+  description = "Streamline your data flow with us, save time and costs"
+  author = "Edentri AS"
+  
+# Build configuration
+publishDir = "public"
+enableGitInfo = true
+
+[build]
+  writeStats = true
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+# Cloudflare Pages configuration
+[deployment]
+  [[deployment.targets]]
+    name = "cloudflare"
+    URL = "https://edentri.pages.dev"
+
+# Minification for production
+[minify]
+  disableCSS = false
+  disableHTML = false
+  disableJS = false
+  disableJSON = false
+  disableSVG = false
+  disableXML = false

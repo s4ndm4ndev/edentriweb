@@ -1,0 +1,50 @@
+{{ define "main" }}
+<section class="page-header">
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="/" class="breadcrumb__link">Home</a>
+            <span class="breadcrumb__separator">→</span>
+            <span class="breadcrumb__current">{{ .Title }}</span>
+        </nav>
+        <h1 class="page-header__title">{{ .Title }}</h1>
+        {{ if .Description }}
+            <p class="page-header__description">{{ .Description }}</p>
+        {{ end }}
+    </div>
+</section>
+
+<section class="service-content">
+        <div class="container">
+            <div class="service-content__wrapper">
+                <main class="service-content__main">
+                    {{ .Content }}
+                </main>
+                
+                <aside class="service-content__sidebar">
+                    <div class="sidebar-widget sidebar-widget--cta">
+                        <h3 class="sidebar-widget__title">Ready to Get Started?</h3>
+                        <p class="sidebar-widget__text">
+                            Book a demo to see how we can help transform your operations.
+                        </p>
+                        <a href="/#demo-booking" class="btn btn--primary btn--full">Book a Demo</a>
+                    </div>
+                    
+                    <div class="sidebar-widget">
+                        <h3 class="sidebar-widget__title">Quick Links</h3>
+                        <ul class="sidebar-widget__list">
+                            <li class="sidebar-widget__item">
+                                <a href="/services/" class="sidebar-widget__link">Our Services</a>
+                            </li>
+                            <li class="sidebar-widget__item">
+                                <a href="/about/" class="sidebar-widget__link">About Us</a>
+                            </li>
+                            <li class="sidebar-widget__item">
+                                <a href="/contact/" class="sidebar-widget__link">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </div>
+</section>
+{{ end }}

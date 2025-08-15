@@ -1,0 +1,56 @@
+# English translations
+[nav]
+home = "Home"
+services = "Services"
+about = "About"
+contact = "Contact"
+bookDemo = "Book Demo"
+toggleTheme = "Toggle theme"
+toggleNavigation = "Toggle navigation"
+
+[home]
+heroTitle = "Streamline Your Data Flow"
+heroSubtitle = "Save time and costs with our automated data processing solutions"
+heroButton = "Get Started"
+servicesTitle = "Our Services"
+aboutTitle = "About Edentri"
+contactTitle = "Contact Us"
+
+[services]
+title = "Our Services"
+dataExtraction = "Data Extraction"
+documentProcessing = "Document Processing" 
+workflowIntegration = "Workflow Integration"
+learnMore = "Learn More"
+ctaTitle = "Ready to Get Started?"
+ctaDescription = "Discover how our services can transform your data processing workflow. Book a demo to see our solutions in action."
+
+[about]
+title = "About Us"
+description = "We help businesses streamline their data processing workflows."
+
+[contact]
+title = "Contact"
+getInTouch = "Get in Touch"
+name = "Name"
+email = "Email"
+message = "Message"
+send = "Send Message"
+
+[footer]
+company = "Company"
+services = "Services"
+support = "Support"
+legal = "Legal"
+connect = "Connect"
+aboutUs = "About Us"
+contact = "Contact"
+privacyPolicy = "Privacy Policy"
+dataExtraction = "Data Extraction"
+documentProcessing = "Document Processing"
+workflowIntegration = "Workflow Integration"
+linkedin = "LinkedIn"
+twitter = "Twitter"
+email = "Email"
+description = "Streamline your data flow with us, save time and costs."
+copyright = "All rights reserved."

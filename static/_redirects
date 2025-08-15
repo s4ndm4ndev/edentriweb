@@ -1,0 +1,16 @@
+# Cloudflare Pages redirects
+
+# Handle trailing slashes
+/services /services/ 301
+/about /about/ 301
+/contact /contact/ 301
+
+# Redirect old URLs if needed (example patterns)
+# /old-page /new-page 301
+# /blog/* /posts/:splat 301
+
+# SPA fallback for any dynamic routing (if needed)
+# /* /index.html 200
+
+# Default fallback to 404
+# /* /404.html 404

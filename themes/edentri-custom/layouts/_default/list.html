@@ -1,0 +1,34 @@
+{{ define "main" }}
+<section class="page-header">
+    <div class="container">
+        <nav class="breadcrumb">
+            <a href="/" class="breadcrumb__link">Home</a>
+            <span class="breadcrumb__separator">→</span>
+            <span class="breadcrumb__current">{{ .Title }}</span>
+        </nav>
+        <h1 class="page-header__title">{{ .Title }}</h1>
+        {{ if .Description }}
+        <p class="page-header__description">{{ .Description }}</p>
+        {{ end }}
+    </div>
+</section>
+
+<section class="content">
+    <div class="container">
+        {{ .Content }}
+        
+        {{ if .Pages }}
+        <div class="content-list">
+            {{ range .Pages }}
+            <div class="content-item">
+                <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+                {{ if .Description }}
+                <p>{{ .Description }}</p>
+                {{ end }}
+            </div>
+            {{ end }}
+        </div>
+        {{ end }}
+    </div>
+</section>
+{{ end }}

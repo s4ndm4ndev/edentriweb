@@ -1,0 +1,117 @@
+{{ define "main" }}
+<section class="error-page">
+    <div class="error-container">
+        <div class="error-content">
+            <h1 class="error-code">503</h1>
+            <h2 class="error-title">Service Unavailable</h2>
+            <p class="error-description">
+                We're temporarily down for maintenance. Please try again in a few minutes.
+            </p>
+            <div class="error-actions">
+                <a href="{{ .Site.BaseURL }}" class="btn btn-primary">Go Home</a>
+                <a href="javascript:location.reload()" class="btn btn-secondary">Refresh Page</a>
+            </div>
+        </div>
+        <div class="error-illustration">
+            <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="200" cy="150" r="80" stroke="var(--color-primary)" stroke-width="3" fill="none"/>
+                <path d="M160 130L180 150L240 120" stroke="var(--color-primary)" stroke-width="4" stroke-linecap="round" fill="none"/>
+                <circle cx="200" cy="190" r="3" fill="var(--color-primary)"/>
+                <path d="M140 200C140 200 180 220 200 220C220 220 260 200 260 200" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.5"/>
+                <rect x="180" y="80" width="40" height="20" rx="3" fill="var(--color-primary)" opacity="0.3"/>
+                <circle cx="170" cy="90" r="3" fill="var(--color-primary)"/>
+                <circle cx="230" cy="90" r="3" fill="var(--color-primary)"/>
+            </svg>
+        </div>
+    </div>
+</section>
+
+<style>
+.error-page {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.error-container {
+    max-width: 800px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.error-content {
+    text-align: left;
+}
+
+.error-code {
+    font-size: 8rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    line-height: 1;
+    margin: 0 0 1rem 0;
+    text-shadow: 2px 2px 4px rgba(255, 107, 53, 0.1);
+}
+
+.error-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
+}
+
+.error-description {
+    font-size: 1.2rem;
+    color: var(--color-text-light);
+    margin: 0 0 2rem 0;
+    line-height: 1.6;
+}
+
+.error-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.error-illustration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-illustration svg {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .error-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .error-content {
+        text-align: center;
+    }
+    
+    .error-code {
+        font-size: 6rem;
+    }
+    
+    .error-title {
+        font-size: 2rem;
+    }
+    
+    .error-actions {
+        justify-content: center;
+    }
+}
+</style>
+{{ end }}

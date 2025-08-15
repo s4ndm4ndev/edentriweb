@@ -1,0 +1,51 @@
+{{ define "main" }}
+<article class="service-page">
+    <header class="service-header">
+        <div class="container">
+            <nav class="breadcrumb">
+                <a href="/" class="breadcrumb__link">Home</a>
+                <span class="breadcrumb__separator">→</span>
+                <a href="/services/" class="breadcrumb__link">Services</a>
+                <span class="breadcrumb__separator">→</span>
+                <span class="breadcrumb__current">{{ .Title }}</span>
+            </nav>
+            <h1 class="service-header__title">{{ .Title }}</h1>
+            <p class="service-header__description">{{ .Description }}</p>
+        </div>
+    </header>
+
+    <div class="service-content">
+        <div class="container">
+            <div class="service-content__wrapper">
+                <main class="service-content__main">
+                    {{ .Content }}
+                </main>
+                
+                <aside class="service-content__sidebar">
+                    <div class="sidebar-widget">
+                        <h3 class="sidebar-widget__title">Other Services</h3>
+                        <ul class="sidebar-widget__list">
+                            {{ $currentPage := . }}
+                            {{ range (.Site.GetPage "/services").Pages }}
+                                {{ if ne . $currentPage }}
+                                <li class="sidebar-widget__item">
+                                    <a href="{{ .Permalink }}" class="sidebar-widget__link">{{ .Title }}</a>
+                                </li>
+                                {{ end }}
+                            {{ end }}
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-widget sidebar-widget--cta">
+                        <h3 class="sidebar-widget__title">Ready to Get Started?</h3>
+                        <p class="sidebar-widget__text">
+                            Book a demo to see how this service can benefit your organization.
+                        </p>
+                        <a href="/#demo-booking" class="btn btn--primary btn--full">Book a Demo</a>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</article>
+{{ end }}

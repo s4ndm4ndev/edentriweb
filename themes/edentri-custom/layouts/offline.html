@@ -1,0 +1,124 @@
+{{ define "main" }}
+<section class="error-page">
+    <div class="error-container">
+        <div class="error-content">
+            <h1 class="error-code">📡</h1>
+            <h2 class="error-title">You're Offline</h2>
+            <p class="error-description">
+                It looks like you're not connected to the internet. Check your connection and try again.
+            </p>
+            <div class="error-actions">
+                <a href="{{ .Site.BaseURL }}" class="btn btn-primary">Go Home</a>
+                <a href="javascript:location.reload()" class="btn btn-secondary">Try Again</a>
+            </div>
+        </div>
+        <div class="error-illustration">
+            <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="200" cy="150" r="100" stroke="var(--color-primary)" stroke-width="3" stroke-dasharray="10,5" opacity="0.3"/>
+                <circle cx="200" cy="150" r="70" stroke="var(--color-primary)" stroke-width="3" stroke-dasharray="8,4" opacity="0.5"/>
+                <circle cx="200" cy="150" r="40" stroke="var(--color-primary)" stroke-width="3" stroke-dasharray="6,3" opacity="0.7"/>
+                <circle cx="200" cy="150" r="8" fill="var(--color-primary)"/>
+                <path d="M170 120L230 180M230 120L170 180" stroke="var(--color-primary)" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+            </svg>
+        </div>
+    </div>
+</section>
+
+<style>
+.error-page {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.error-container {
+    max-width: 800px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.error-content {
+    text-align: left;
+}
+
+.error-code {
+    font-size: 8rem;
+    font-weight: 800;
+    line-height: 1;
+    margin: 0 0 1rem 0;
+    filter: grayscale(0.3);
+}
+
+.error-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
+}
+
+.error-description {
+    font-size: 1.2rem;
+    color: var(--color-text-light);
+    margin: 0 0 2rem 0;
+    line-height: 1.6;
+}
+
+.error-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.error-illustration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-illustration svg {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 0.4;
+    }
+}
+
+@media (max-width: 768px) {
+    .error-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .error-content {
+        text-align: center;
+    }
+    
+    .error-code {
+        font-size: 6rem;
+    }
+    
+    .error-title {
+        font-size: 2rem;
+    }
+    
+    .error-actions {
+        justify-content: center;
+    }
+}
+</style>
+{{ end }}

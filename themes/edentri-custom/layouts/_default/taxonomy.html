@@ -1,0 +1,38 @@
+{{ define "main" }}
+<div class="taxonomy-page">
+    <div class="container">
+        <header class="page-header">
+            <h1 class="page-header__title">{{ .Title }}</h1>
+            <p class="page-header__description">
+                {{ if .Description }}
+                    {{ .Description }}
+                {{ else }}
+                    Browse content by {{ .Type }}
+                {{ end }}
+            </p>
+        </header>
+
+        <div class="taxonomy-content">
+            {{ if .Pages }}
+                <div class="posts-grid">
+                    {{ range .Pages }}
+                        <article class="post-card">
+                            <h2 class="post-card__title">
+                                <a href="{{ .Permalink }}" class="post-card__link">{{ .Title }}</a>
+                            </h2>
+                            {{ if .Summary }}
+                                <p class="post-card__summary">{{ .Summary }}</p>
+                            {{ end }}
+                            <div class="post-card__meta">
+                                <time class="post-card__date">{{ .Date.Format "January 2, 2006" }}</time>
+                            </div>
+                        </article>
+                    {{ end }}
+                </div>
+            {{ else }}
+                <p class="empty-state">No content found for this {{ .Type }}.</p>
+            {{ end }}
+        </div>
+    </div>
+</div>
+{{ end }}

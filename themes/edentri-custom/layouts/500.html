@@ -1,0 +1,117 @@
+{{ define "main" }}
+<section class="error-page">
+    <div class="error-container">
+        <div class="error-content">
+            <h1 class="error-code">500</h1>
+            <h2 class="error-title">Server Error</h2>
+            <p class="error-description">
+                Something went wrong on our end. We're working to fix the issue.
+            </p>
+            <div class="error-actions">
+                <a href="{{ .Site.BaseURL }}" class="btn btn-primary">Go Home</a>
+                <a href="javascript:location.reload()" class="btn btn-secondary">Try Again</a>
+            </div>
+        </div>
+        <div class="error-illustration">
+            <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="100" y="80" width="200" height="140" rx="10" stroke="var(--color-primary)" stroke-width="3" fill="none"/>
+                <rect x="110" y="100" width="180" height="4" fill="var(--color-primary)" opacity="0.3"/>
+                <rect x="110" y="120" width="120" height="4" fill="var(--color-primary)" opacity="0.3"/>
+                <rect x="110" y="140" width="160" height="4" fill="var(--color-primary)" opacity="0.3"/>
+                <circle cx="250" cy="160" r="20" fill="var(--color-primary)" opacity="0.2"/>
+                <path d="M240 150L260 170M260 150L240 170" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round"/>
+                <path d="M180 240C180 240 190 250 200 250C210 250 220 240 220 240" stroke="var(--color-primary)" stroke-width="3" stroke-linecap="round" fill="none"/>
+            </svg>
+        </div>
+    </div>
+</section>
+
+<style>
+.error-page {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.error-container {
+    max-width: 800px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.error-content {
+    text-align: left;
+}
+
+.error-code {
+    font-size: 8rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    line-height: 1;
+    margin: 0 0 1rem 0;
+    text-shadow: 2px 2px 4px rgba(255, 107, 53, 0.1);
+}
+
+.error-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
+}
+
+.error-description {
+    font-size: 1.2rem;
+    color: var(--color-text-light);
+    margin: 0 0 2rem 0;
+    line-height: 1.6;
+}
+
+.error-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.error-illustration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-illustration svg {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .error-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .error-content {
+        text-align: center;
+    }
+    
+    .error-code {
+        font-size: 6rem;
+    }
+    
+    .error-title {
+        font-size: 2rem;
+    }
+    
+    .error-actions {
+        justify-content: center;
+    }
+}
+</style>
+{{ end }}
