@@ -442,24 +442,40 @@ a:hover {
 
 .hero__scroll-indicator {
   position: absolute;
-  bottom: var(--space-3);
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
-  color: var(--color-text-tertiary);
+  color: rgba(255, 255, 255, 0.8);
   animation: bounce 2s infinite;
   cursor: pointer;
-  transition: var(--transition);
+  transition: all 0.3s ease;
+  z-index: 10;
+  padding: 12px 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 30px;
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
 }
 
 .hero__scroll-indicator:hover {
-  color: var(--color-primary);
+  color: #FF6B35;
+  border-color: #FF6B35;
+  background: rgba(255, 107, 53, 0.1);
+  transform: translateX(-50%) translateY(-5px);
 }
 
 .hero__scroll-text {
-  display: block;
-  font-size: var(--font-size-sm);
-  margin-bottom: var(--space-2);
+  display: inline-block;
+  font-size: 14px;
+  margin-right: 8px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.hero__scroll-arrow {
+  display: inline-block;
+  vertical-align: middle;
 }
 
 @keyframes bounce {
@@ -467,11 +483,24 @@ a:hover {
     transform: translateX(-50%) translateY(0);
   }
   40% {
-    transform: translateX(-50%) translateY(-10px);
+    transform: translateX(-50%) translateY(-8px);
   }
   60% {
-    transform: translateX(-50%) translateY(-5px);
+    transform: translateX(-50%) translateY(-3px);
   }
+}
+
+/* Dark mode adjustments for scroll indicator */
+[data-theme="dark"] .hero__scroll-indicator {
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .hero__scroll-indicator:hover {
+  color: #FF6B35;
+  border-color: #FF6B35;
+  background: rgba(255, 107, 53, 0.1);
 }
 
 /* ===== SERVICES SECTION ===== */
