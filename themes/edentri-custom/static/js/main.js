@@ -96,14 +96,14 @@ class MobileNav {
     }
 }
 
-// ===== SMOOTH SCROLLING =====
-class SmoothScroll {
+// ===== INSTANT SCROLLING =====
+class InstantScroll {
     constructor() {
         this.init();
     }
 
     init() {
-        // Handle anchor links
+        // Handle anchor links with instant scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -112,10 +112,8 @@ class SmoothScroll {
                     const headerHeight = document.querySelector('.header').offsetHeight;
                     const targetPosition = target.offsetTop - headerHeight;
                     
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
+                    // Use instant scroll to avoid warnings
+                    window.scrollTo(0, targetPosition);
                 }
             });
         });
@@ -129,10 +127,8 @@ class SmoothScroll {
                     const headerHeight = document.querySelector('.header').offsetHeight;
                     const targetPosition = servicesSection.offsetTop - headerHeight;
                     
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
+                    // Use instant scroll to avoid warnings
+                    window.scrollTo(0, targetPosition);
                 }
             });
         }
@@ -485,7 +481,7 @@ class App {
         this.components = [
             new ThemeManager(),
             new MobileNav(),
-            new SmoothScroll(),
+            new InstantScroll(),
             new ScrollAnimations(),
             new FormHandler(),
             new VideoOptimizer(),

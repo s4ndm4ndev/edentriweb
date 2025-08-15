@@ -86,13 +86,13 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* Removed scroll-behavior: smooth to prevent scroll-linked positioning warnings */
 }
 
-/* Ensure smooth scrolling is supported by all browsers */
+/* Smooth scrolling disabled to avoid performance warnings */
 @media (prefers-reduced-motion: no-preference) {
   html {
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; - disabled */
   }
 }
 
